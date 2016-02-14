@@ -98,8 +98,6 @@ func rectToInsetRect(rect: CGRect) -> CGRect {
 class Display: UIView {
     
     // Draws a segment given its four corners, supplied in clockwise order.
-    // I put one bug in this code. Find it and fix it. Once it's fixed, you'll
-    // see a nicely drawn 8.
     func drawSegment(context: CGContextRef, upperLeft: CGPoint, upperRight: CGPoint, lowerRight: CGPoint, lowerLeft: CGPoint, on:Bool) {
         let color = on ? ledOnColor : ledOffColor
         CGContextSetFillColorWithColor(context, color)
@@ -157,9 +155,12 @@ class Display: UIView {
         let xOrigin = bounds.origin.x
         let yOrigin = bounds.origin.y
         // This needs re-doing. The segmentWidth is the whole view width. It should only be one-fifteenth of that.
-        let sscRect = CGRectMake(xOrigin, yOrigin, bounds.size.width, segmentHeight)
+        let sscRect = CGRectMake(xOrigin, yOrigin, bounds.size.width/15, segmentHeight)
         // This needs completing. It only draws one SSC. It needs to be put in a loop to show all 15 SSCs.
-        drawSSC(context, sscRect:sscRect, mask:segmentMasks[8])
+        for	i in 0..<15 {
+            //let sscRect = CGRectMake(xOrigin, yOrigin, bounds.size.width/15, segmentHeight)
+            drawSSC(context, sscRect:sscRect, mask:masks[i])
+        }
     }
 
 }
